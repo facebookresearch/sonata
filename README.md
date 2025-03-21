@@ -2,6 +2,11 @@
 This repo is the official project repository of the paper **_Sonata: Self-Supervised Learning of Reliable Point Representations_** and is mainly used for providing pre-trained models, inference code and visualization demo. For reproduce pre-training process of Sonata, please refer to our **[Pointcept](https://github.com/Pointcept/Pointcept)** codebase.  
 [ **Pretrain** ] [ **Sonata** ] - [ [Homepage](https://xywu.me/sonata/) ] [ [Paper](http://arxiv.org/abs/2503.16429) ] [ [Bib](#citation) ]
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-scannet)](https://paperswithcode.com/sota/semantic-segmentation-on-scannet?p=sonata-self-supervised-learning-of-reliable)	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-s3dis)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis?p=sonata-self-supervised-learning-of-reliable)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-s3dis-area5)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis-area5?p=sonata-self-supervised-learning-of-reliable)
+
+
 <div align='left'>
 <img src="https://raw.githubusercontent.com/pointcept/assets/main/sonata/teaser.png" alt="teaser" width="800" />
 </div>
