@@ -91,7 +91,7 @@ This repo provide two ways of installation: **standalone mode** and **package mo
   ```
   One example of the data can be loaded by running the following command:
   ```python
-  point = sonata.data.load("example1")
+  point = sonata.data.load("sample1")
   ```
 - **Transform.** The data transform pipeline is shared as the one used in Pointcept codebase. You can use the following code to construct the transform pipeline:
   ```python
@@ -103,12 +103,13 @@ This repo provide two ways of installation: **standalone mode** and **package mo
           hash_type="fnv",
           mode="train",
           return_grid_coord=True,
+          return_inverse=True,
       ),
       dict(type="NormalizeColor"),
       dict(type="ToTensor"),
       dict(
           type="Collect",
-          keys=("coord", "grid_coord", "color"),
+          keys=("coord", "grid_coord", "color", "inverse"),
           feat_keys=("coord", "color", "normal"),
       ),
   ]
@@ -142,8 +143,9 @@ This repo provide two ways of installation: **standalone mode** and **package mo
 - **Inference.** Run the inference by running the following command:
   ```python
   point = transform(point)
-  if isinstance(data[key], torch.Tensor):
-      data[key] = data[key].cuda(non_blocking=True)
+  for key in point.keys():
+      if isinstance(point[key], torch.Tensor):
+          point[key] = point[key].cuda(non_blocking=True)
   point = model(point)
   ```
   As Sonata is a pre-trained **encoder-only** PTv3, the default output of the model is point cloud after hieratical encoding. The encoded point feature can be mapping back to original scale with the following code:
