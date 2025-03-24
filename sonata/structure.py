@@ -71,7 +71,7 @@ class Point(Dict):
         assert "batch" in self.keys()
         if "grid_coord" not in self.keys():
             # if you don't want to operate GridSampling in data augmentation,
-            # please add the following augmentation into your pipline:
+            # please add the following augmentation into your pipeline:
             # dict(type="Copy", keys_dict={"grid_size": 0.01}),
             # (adjust `grid_size` to what your want)
             assert {"grid_size", "coord"}.issubset(self.keys())
@@ -134,7 +134,7 @@ class Point(Dict):
         assert {"feat", "batch"}.issubset(self.keys())
         if "grid_coord" not in self.keys():
             # if you don't want to operate GridSampling in data augmentation,
-            # please add the following augmentation into your pipline:
+            # please add the following augmentation into your pipeline:
             # dict(type="Copy", keys_dict={"grid_size": 0.01}),
             # (adjust `grid_size` to what your want)
             assert {"grid_size", "coord"}.issubset(self.keys())
