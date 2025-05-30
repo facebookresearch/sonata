@@ -13,9 +13,9 @@
 # limitations under the License.
 
 
-import torch
 import open3d as o3d
 import sonata
+import torch
 from fast_pytorch_kmeans import KMeans
 
 try:
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         model = sonata.load(
             "sonata", repo_id="facebook/sonata", custom_config=custom_config
         ).cuda()
-    # Load default data transform pipline
+    # Load default data transform pipeline
     transform = sonata.transform.default()
     # Load data
     point = sonata.data.load("sample1")

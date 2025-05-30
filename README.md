@@ -1,10 +1,10 @@
 # Sonata
 **TL;DR:** This repo provide self-supervised pre-trained [Point Transformer V3](https://github.com/Pointcept/PointTransformerV3) for 3D point cloud downstream tasks.
 
-This repo is the official project repository of the paper **_Sonata: Self-Supervised Learning of Reliable Point Representations_** and is mainly used for providing pre-trained models, inference code and visualization demo. For reproduce pre-training process of Sonata, please refer to our **[Pointcept](https://github.com/Pointcept/Pointcept)** codebase.  
+This repo is the official project repository of the paper **_Sonata: Self-Supervised Learning of Reliable Point Representations_** and is mainly used for providing pre-trained models, inference code and visualization demo. For reproduce pre-training process of Sonata, please refer to our **[Pointcept](https://github.com/Pointcept/Pointcept)** codebase.
 [ **Pretrain** ] [ **Sonata** ] - [ [Homepage](https://xywu.me/sonata/) ] [ [Paper](http://arxiv.org/abs/2503.16429) ] [ [Bib](#citation) ]
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-scannet)](https://paperswithcode.com/sota/semantic-segmentation-on-scannet?p=sonata-self-supervised-learning-of-reliable)	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-scannet)](https://paperswithcode.com/sota/semantic-segmentation-on-scannet?p=sonata-self-supervised-learning-of-reliable)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-s3dis)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis?p=sonata-self-supervised-learning-of-reliable)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sonata-self-supervised-learning-of-reliable/semantic-segmentation-on-s3dis-area5)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis-area5?p=sonata-self-supervised-learning-of-reliable)
 
@@ -15,7 +15,7 @@ This repo is the official project repository of the paper **_Sonata: Self-Superv
 
 ## Highlights
 - *Apr, 2025* 🚀: **Sonata** is selected as one of the **Highlight** presentation (3.0% submissions) of CVPR 2025!
-- *Mar, 2025* : **Sonata** is accepted by CVPR 2025! We release the pre-training code along with **[Pointcept](https://github.com/Pointcept/Pointcept)** v1.6.0 and provide an easy-to-use inference demo and visualization with our pre-trained model weight in this repo. We highly recommend user begin with is repo for **[quick start](#quick-start)**. 
+- *Mar, 2025* : **Sonata** is accepted by CVPR 2025! We release the pre-training code along with **[Pointcept](https://github.com/Pointcept/Pointcept)** v1.6.0 and provide an easy-to-use inference demo and visualization with our pre-trained model weight in this repo. We highly recommend user begin with is repo for **[quick start](#quick-start)**.
 
 ## Overview
 - [Installation](#installation)
@@ -28,7 +28,7 @@ This repo provide two ways of installation: **standalone mode** and **package mo
   ```bash
   # Create and activate conda environment named as 'sonata'
   # cuda: 12.4, pytorch: 2.5.0
-  
+
   # run `unset CUDA_PATH` if you have installed cuda in your local environment
   conda env create -f environment.yml --verbose
   conda activate sonata
@@ -39,14 +39,14 @@ This repo provide two ways of installation: **standalone mode** and **package mo
 - The **package mode** is recommended for users who want to inject our model into their own codebase. We provide a `setup.py` file for installation. You can install the package by running the following command:
   ```bash
   # Ensure Cuda and Pytorch are already installed in your local environment
-  
+
   # CUDA_VERSION: cuda version of local environment (e.g., 124), check by running 'nvcc --version'
   # TORCH_VERSION: torch version of local environment (e.g., 2.5.0), check by running 'python -c "import torch; print(torch.__version__)"'
   pip install spconv-cu${CUDA_VERSION}
   pip install torch-scatter -f https://data.pyg.org/whl/torch-{TORCH_VERSION}+cu${CUDA_VERSION}.html
   pip install git+https://github.com/Dao-AILab/flash-attention.git
   pip install huggingface_hub timm
-  
+
   # (optional, or directly copy the sonata folder to your project)
   python setup.py install
   ```
@@ -62,7 +62,7 @@ This repo provide two ways of installation: **standalone mode** and **package mo
   export PYTHONPATH=./
   python demo/0_pca.py
   python demo/1_similarity.py
-  python demo/2_sem_seg.py  # linear probed head on ScanNet 
+  python demo/2_sem_seg.py  # linear probed head on ScanNet
   ```
 
 <div align='left'>
@@ -80,9 +80,9 @@ This repo provide two ways of installation: **standalone mode** and **package mo
     "normal": numpy.array,  # (N, 3)
     "segment": numpy.array,  # (N,) optional
   }
-  
+
   # batched point clouds
-  
+
   # check the data structure of batched point clouds from here:
   # https://github.com/Pointcept/Pointcept#offset
   point = {
@@ -129,15 +129,15 @@ This repo provide two ways of installation: **standalone mode** and **package mo
   # supported models: "sonata"
   # ckpt is cached in ~/.cache/sonata/ckpt, and the path can be customized by setting 'download_root'
   model = sonata.model.load("sonata", repo_id="facebook/sonata").cuda()
-  
+
   # or
   from sonata.model import PointTransformerV3
   model = PointTransformerV3.from_pretrained("facebook/sonata").cuda()
-  
+
   # Load the pre-trained model from local path
   # assume the ckpt file is stored in the 'ckpt' folder
   model = sonata.model.load("ckpt/sonata.pth").cuda()
-  
+
   # the ckpt file store the config and state_dict of pretrained model
   ```
   If *FlashAttention* is not available, load the pre-trained model with the following code:
@@ -159,7 +159,7 @@ This repo provide two ways of installation: **standalone mode** and **package mo
           point[key] = point[key].cuda(non_blocking=True)
   point = model(point)
   ```
-  As Sonata is a pre-trained **encoder-only** PTv3, the default output of the model is point cloud after hieratical encoding. The encoded point feature can be mapping back to original scale with the following code:
+  As Sonata is a pre-trained **encoder-only** PTv3, the default output of the model is point cloud after hierarchical encoding. The encoded point feature can be mapping back to original scale with the following code:
   ```python
   for _ in range(2):
       assert "pooling_parent" in point.keys()

@@ -14,10 +14,10 @@
 
 
 import numpy as np
+import open3d as o3d
+import sonata
 import torch
 import torch.nn as nn
-import sonata
-import open3d as o3d
 
 try:
     import flash_attn
@@ -147,7 +147,7 @@ if __name__ == "__main__":
     )
     seg_head = SegHead(**ckpt["config"]).cuda()
     seg_head.load_state_dict(ckpt["state_dict"])
-    # Load default data transform pipline
+    # Load default data transform pipeline
     transform = sonata.transform.default()
     # Load data
     point = sonata.data.load("sample1")
